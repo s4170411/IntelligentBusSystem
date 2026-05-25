@@ -1,0 +1,17 @@
+# Compiled class file
+*.class
+
+# Maven
+target/
+
+# IDE directories
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS generated files
+.DS_Store
+Thumbs.db
