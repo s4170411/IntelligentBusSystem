@@ -5,8 +5,14 @@ import java.util.ArrayList;
 public class DriverRepository {
     private ArrayList<Driver> drivers = new ArrayList<>();
 
-    public void add(Driver driver) {
+    public boolean add(Driver driver) {
+        for (Driver d : drivers) {
+            if (d.getDriverID().equals(driver.getDriverID())) {
+                return false;
+            }
+        }
         drivers.add(driver);
+        return true;
     }
 
     public Driver retrieve(String driverID) {

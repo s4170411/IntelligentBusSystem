@@ -9,7 +9,7 @@ public class Driver {
     private String birthdate;
 
     public Driver(String driverID, String name, int experienceYears, String licenseType, String address, String birthdate) {
-        this.driverID = driverID;
+        setDriverID(driverID);
         this.name = name;
         this.experienceYears = experienceYears;
         this.licenseType = licenseType;
@@ -22,6 +22,24 @@ public class Driver {
     }
     
     public void setDriverID(String driverID) {
+        if (driverID == null || driverID.length() != 10) {
+            throw new IllegalArgumentException("Driver ID must be exactly 10 characters long.");
+        }
+        for (int i = 0; i < 2; i++) {
+            char c = driverID.charAt(i);
+            if (c < '2' || c > '9') {
+                throw new IllegalArgumentException("The first two characters must be digits between 2 and 9.");
+            }
+        }
+        int specialCount = 0;
+        for (int i = 2; i <= 7; i++) {
+            if (!Character.isLetterOrDigit(driverID.charAt(i))) {
+                specialCount++;
+            }
+        }
+        if (specialCount < 2) {
+            throw new IllegalArgumentException("Driver ID must contain at least two special characters between positions 3 and 8.");
+        }
         this.driverID = driverID;
     }
 
