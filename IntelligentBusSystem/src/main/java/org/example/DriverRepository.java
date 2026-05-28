@@ -26,7 +26,17 @@ public class DriverRepository {
 
     public boolean update(String driverID, Driver updatedDriver) {
         for (int i = 0; i < drivers.size(); i++) {
-            if (drivers.get(i).getDriverID().equals(driverID)) {
+            Driver existing = drivers.get(i);
+            if (existing.getDriverID().equals(driverID)) {
+                if (!existing.getDriverID().equals(updatedDriver.getDriverID())) {
+                    throw new IllegalArgumentException("Driver ID cannot be changed during an update.");
+                }
+                if (!existing.getName().equals(updatedDriver.getName())) {
+                    throw new IllegalArgumentException("Driver name cannot be changed during an update.");
+                }
+                if (existing.getExperienceYears() > 10 && !existing.getLicenseType().equals(updatedDriver.getLicenseType())) {
+                    throw new IllegalArgumentException("Cannot change license type for a driver with more than 10 years of experience.");
+                }
                 drivers.set(i, updatedDriver);
                 return true;
             }
