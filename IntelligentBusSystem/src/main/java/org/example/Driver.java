@@ -9,12 +9,12 @@ public class Driver {
     private String birthdate;
 
     public Driver(String driverID, String name, int experienceYears, String licenseType, String address, String birthdate) {
-        this.driverID = driverID;
+        setDriverID(driverID);
         this.name = name;
         this.experienceYears = experienceYears;
         this.licenseType = licenseType;
-        this.address = address;
-        this.birthdate = birthdate;
+        setAddress(address);
+        setBirthdate(birthdate);
     }
 
     public String getDriverID() { 
@@ -22,6 +22,24 @@ public class Driver {
     }
     
     public void setDriverID(String driverID) {
+        if (driverID == null || driverID.length() != 10) {
+            throw new IllegalArgumentException("Driver ID must be exactly 10 characters long.");
+        }
+        for (int i = 0; i < 2; i++) {
+            char c = driverID.charAt(i);
+            if (c < '2' || c > '9') {
+                throw new IllegalArgumentException("The first two characters must be digits between 2 and 9.");
+            }
+        }
+        int specialCount = 0;
+        for (int i = 2; i <= 7; i++) {
+            if (!Character.isLetterOrDigit(driverID.charAt(i))) {
+                specialCount++;
+            }
+        }
+        if (specialCount < 2) {
+            throw new IllegalArgumentException("Driver ID must contain at least two special characters between positions 3 and 8.");
+        }
         this.driverID = driverID;
     }
 
@@ -50,6 +68,15 @@ public class Driver {
         return address;
     }
     public void setAddress(String address) {
+        String[] parts = address.split("\\|", -1);
+        if (parts.length != 5) {
+            throw new IllegalArgumentException("Address must follow the format: Street Number|Street Name|City|State|Country.");
+        }
+        for (String part : parts) {
+            if (part.trim().isEmpty()) {
+                throw new IllegalArgumentException("Address must not have any empty fields.");
+            }
+        }
         this.address = address;
     }
 
@@ -57,6 +84,17 @@ public class Driver {
         return birthdate;
     }
     public void setBirthdate(String birthdate) {
+        if (!birthdate.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            throw new IllegalArgumentException("Birthdate must follow the format: DD-MM-YYYY.");
+        }
+        int day = Integer.parseInt(birthdate.substring(0, 2));
+        int month = Integer.parseInt(birthdate.substring(3, 5));
+        if (day < 1 || day > 31) {
+            throw new IllegalArgumentException("Birthdate day must be between 01 and 31.");
+        }
+        if (month < 1 || month > 12) {
+            throw new IllegalArgumentException("Birthdate month must be between 01 and 12.");
+        }
         this.birthdate = birthdate;
     }
 }
