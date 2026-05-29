@@ -93,11 +93,15 @@ public class Driver {
         }
         int day = Integer.parseInt(birthdate.substring(0, 2));
         int month = Integer.parseInt(birthdate.substring(3, 5));
+        int year = Integer.parseInt(birthdate.substring(6, 10));
         if (day < 1 || day > 31) {
             throw new IllegalArgumentException("Birthdate day must be between 01 and 31.");
         }
         if (month < 1 || month > 12) {
             throw new IllegalArgumentException("Birthdate month must be between 01 and 12.");
+        }
+        if (year < 1900 || year > 2008) {
+            throw new IllegalArgumentException("Birthdate year must be between 1900 and 2008.");
         }
         this.birthdate = birthdate;
     }
