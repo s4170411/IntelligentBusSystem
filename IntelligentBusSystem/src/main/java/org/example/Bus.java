@@ -1,4 +1,7 @@
 package org.example;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Bus {
     private String busID;
@@ -56,5 +59,44 @@ public class Bus {
         this.capacity = updatedBus.getCapacity();
         this.fuelLevel = updatedBus.getFuelLevel();
         this.setFuelType(updatedBus.getFuelType());
+    }
+
+    // B3, B4, B5
+    public void checkDriverBusRestrictions(Driver driver){
+        if (driver == null) {
+            throw new IllegalArgumentException("Driver must exist.");
+        }
+
+        // B3 : Age restriction
+        // Could just expect the format, substring last four chars, for completeness’s sake though, run it through a datetime parser
+        String dateTimeStrBirthdate = driver.getBirthdate();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+
+        LocalDate driverBirthDate = LocalDate.parse(dateTimeStrBirthdate, formatter);
+
+        // Get today
+        LocalDate currentDate = LocalDate.now();
+
+        long age = ChronoUnit.YEARS.between(driverBirthDate, currentDate);
+        
+        if (age > 50 && this.capacity >= 50) {
+            throw new IllegalArgumentException("Drivers over 50 cannot drive a bus with a capacity of 50 or more");
+        }
+
+        // B4 : Electric, experience >= 5
+        if (this.fuelType.equals("Electricity") && driver.getExperienceYears() < 5) {
+            throw new IllegalArgumentException("Drivers must have at least 5 years of experience to drive an electric bus");
+        }
+
+        // B5 : Heavy or public transport are permitted to operate electric/hybrid
+        if (this.fuelType.equals("Electricity") || this.fuelType.equals("Hybrid")) {
+            String license = driver.getLicenseType();
+            if (!license.equals("Heavy") && !license.equals("PublicTransport")) {
+                throw new IllegalArgumentException("A Heavy or Public Transport license is required for Electric/Hybrid buses");
+            }
+        }
+
+        
     }
 }
