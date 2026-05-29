@@ -20,7 +20,9 @@ public class Driver {
     public String getDriverID() { 
         return driverID; 
     }
-    
+    // Validates the driver ID: 10 characters, first two digits between 2-9
+    // At least two special characters in positions 3-8
+    // Last two characters must be uppercase letters (A-Z)
     public void setDriverID(String driverID) {
         if (driverID == null || driverID.length() != 10) {
             throw new IllegalArgumentException("Driver ID must be exactly 10 characters long.");
@@ -67,6 +69,7 @@ public class Driver {
     public String getAddress() {
         return address;
     }
+    // Validates the address format x|y|z|w|v and ensures no empty fields before setting it
     public void setAddress(String address) {
         String[] parts = address.split("\\|", -1);
         if (parts.length != 5) {
@@ -83,6 +86,7 @@ public class Driver {
     public String getBirthdate() {
         return birthdate;
     }
+    // Validates the birthdate is in format DD-MM-YYYY and ensures it represents a valid date before setting it
     public void setBirthdate(String birthdate) {
         if (!birthdate.matches("\\d{2}-\\d{2}-\\d{4}")) {
             throw new IllegalArgumentException("Birthdate must follow the format: DD-MM-YYYY.");

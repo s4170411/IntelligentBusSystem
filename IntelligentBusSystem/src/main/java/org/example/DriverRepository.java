@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class DriverRepository {
     private ArrayList<Driver> drivers = new ArrayList<>();
-
+    // Adds a new driver to the repository, ensuring no duplicate IDs
     public boolean add(Driver driver) {
         for (Driver d : drivers) {
             if (d.getDriverID().equals(driver.getDriverID())) {
@@ -15,15 +15,18 @@ public class DriverRepository {
         return true;
     }
 
+    // Retrieves a driver by their ID, returning null if not found
     public Driver retrieve(String driverID) {
         for (Driver driver : drivers) {
             if (driver.getDriverID().equals(driverID)) {
                 return driver;
             }
         }
+        System.out.println("Driver with ID " + driverID + " not found.");
         return null;
     }
-
+    
+    // Validates the update according to the specified rules (can't change ID, name or license type for experienced drivers) before applying it
     public boolean update(String driverID, Driver updatedDriver) {
         for (int i = 0; i < drivers.size(); i++) {
             Driver existing = drivers.get(i);
