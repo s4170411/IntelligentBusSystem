@@ -31,5 +31,12 @@ class BusTests {
 
     }
 
+    // Test case 3 : BusID All digits
+    @Test
+    @DisplayName("Bus Test Case 3 : Check BusID is all digits")
+    void testAlphaNumericBusID() {
+        assertThrows(IllegalArgumentException.class, () -> new Bus("8392a210", 50, 100.0, "Diesel"));
+    }
+    
 
 }
