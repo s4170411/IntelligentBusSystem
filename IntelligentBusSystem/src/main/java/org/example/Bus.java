@@ -46,7 +46,7 @@ public class Bus {
     public void setBusID(String busID) {
         // regex check to ensure 8 chars
         if (busID == null || !busID.matches("^\\d{8}$")) {
-            throw new IllegalArgumentException("Bus ID must be 8 numbers and not null");
+            throw new IllegalArgumentException("Bus ID must be exactly 8 numbers and not null");
         }
         // Learnt that "else" is not needed as JVM terminates as "return" after "throw"
         this.busID = busID;
@@ -71,7 +71,7 @@ public class Bus {
         // Could just expect the format, substring last four chars, for completeness’s sake though, run it through a datetime parser
         String dateTimeStrBirthdate = driver.getBirthdate();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy");
 
         LocalDate driverBirthDate = LocalDate.parse(dateTimeStrBirthdate, formatter);
 
