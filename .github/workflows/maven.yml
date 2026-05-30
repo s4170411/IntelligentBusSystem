@@ -27,8 +27,11 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn --batch-mode clean test --file IntelligentBusSystem/pom.xml
+    - name: Compile
+      run: mvn --batch-mode clean compile --file IntelligentBusSystem/pom.xml
+
+    - name: Run Tests
+      run: mvn --batch-mode test --file IntelligentBusSystem/pom.xml
 
    
 
