@@ -19,7 +19,6 @@ class BusTests {
     }
     @Test
     // Test case 1 : Valid
-    @BeforeEach
     void testValidBusID() {
         assertDoesNotThrow(() -> new Bus("12345678", 35, 60.0, "Hybrid"));
     }
