@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BusTests {
-
+    private Bus exampleBus;
 
     @BeforeEach
     void setUp() {
-
+        exampleBus = new Bus("11112222", 50, 100.0, "Diesel");
     }
     // Generate a valid driver
     private Driver createExampleDriver(String birthdate, int experience, String licenseType) {
