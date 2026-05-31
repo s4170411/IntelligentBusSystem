@@ -63,6 +63,13 @@ public class Bus {
     // B2 : Capacity, allow decrease during operations, not increase
     // To stick to proper OOP, take a new temporary bus (updatedBus), and use it to update an existing bus
     public void updateBus(Bus updatedBus) {
+
+        if (updatedBus.getCapacity() < 0) {
+            throw new IllegalArgumentException("Capacity cannot be negative");
+        }
+        if (updatedBus.getCapacity() > this.capacity) {
+            throw new IllegalArgumentException("Capacity cannot be increased during an update");
+        }
         this.capacity = updatedBus.getCapacity();
         this.fuelLevel = updatedBus.getFuelLevel();
         this.setFuelType(updatedBus.getFuelType());
