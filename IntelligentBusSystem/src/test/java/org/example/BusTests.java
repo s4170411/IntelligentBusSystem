@@ -83,7 +83,7 @@ class BusTests {
     void testInvalidAgeRestriction() {
         Driver driverAge55 = createExampleDriver("01-01-1971", 10, "Heavy");
         Bus largeBus = new Bus("33334444", 67, 100.0, "Diesel");
-        assertDoesNotThrow(() -> largeBus.checkDriverBusRestrictions(driverAge55));
+        assertThrows(IllegalArgumentException.class, () -> largeBus.checkDriverBusRestrictions(driverAge55));
     }
 
     @Test
