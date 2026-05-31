@@ -89,10 +89,20 @@ class DriverTests {
 
     @Test
     @DisplayName("Driver Test Case 11 : Check if driver has less than 10 years experience, DOES allow license type to be updated")
-    // Test case 11 : Driver has less than 10 years experience, is be allowed to update license type
+    // Test case 11 : Driver has less than 10 years experience, is allowed to update license type
     void testLicenseTypeAllowChange() {
         Driver juniorDriver = new Driver("23@#45ABCD", "John Smith", 8, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
         Driver updatedDriver = new Driver("23@#45ABCD", "John Smith", 8, "Medium", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
+        assertDoesNotThrow(() -> juniorDriver.updateDriver(updatedDriver));
+        assertEquals("Medium", juniorDriver.getLicenseType());
+    }
+
+    @Test
+    @DisplayName("Driver Test Case 12 : Check if driver has 10 years experience, DOES allow license type to be updated")
+        // Test case 12 : Driver has 10 years experience, is allowed to update license type
+    void testLicenseTypeAllowChange() {
+        Driver juniorDriver = new Driver("23@#45ABCD", "John Smith", 10, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
+        Driver updatedDriver = new Driver("23@#45ABCD", "John Smith", 10, "Medium", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
         assertDoesNotThrow(() -> juniorDriver.updateDriver(updatedDriver));
         assertEquals("Medium", juniorDriver.getLicenseType());
     }
