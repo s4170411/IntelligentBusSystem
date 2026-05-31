@@ -12,7 +12,7 @@ class DriverTests {
 
     @BeforeEach
     void setUp() {
-        exampleDriver = new Driver("23@#45pgAB", "John Smith", 12, "Heavy", "10|RMIT|Melbourne|Victoria|Australia", "01-01-2000");;
+        exampleDriver = new Driver("23@#45pgAB", "John Smith", 12, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");;
     }
 
 
@@ -78,4 +78,24 @@ class DriverTests {
     void testInvalidDriverBirthdateSeparator() {
         assertThrows(IllegalArgumentException.class, () -> new Driver("23@#45pgAB", "Test Name", 5, "Light", "10,Morrison,Melbourne,Victoria,Australia", "10/08/2000"));
     }
+
+    @Test
+    @DisplayName("Driver Test Case 10 : Check if driver has more than 10 years experience, DOES NOT allow license type to be updated")
+    // Test case 10 : Driver has more than 10 years experience, should not be allowed to update license type
+    void testLicenseTypeRetrictChange() {
+        Driver updatedDriver = new Driver("23@#45ABCD", "John Smith", 12, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
+        assertThrows(IllegalArgumentException.class, () -> exampleDriver.updateDriver(updatedDriver));
+    }
+
+    @Test
+    @DisplayName("Driver Test Case 11 : Check if driver has less than 10 years experience, DOES allow license type to be updated")
+    // Test case 11 : Driver has less than 10 years experience, is be allowed to update license type
+    void testLicenseTypeAllowChange() {
+        Driver juniorDriver = new Driver("23@#45ABCD", "John Smith", 8, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
+        Driver updatedDriver = new Driver("23@#45ABCD", "John Smith", 8, "Medium", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
+        assertDoesNotThrow(() -> juniorDriver.updateDriver(updatedDriver));
+        assertEquals("Medium", juniorDriver.getLicenseType());
+    }
+
+
 }
