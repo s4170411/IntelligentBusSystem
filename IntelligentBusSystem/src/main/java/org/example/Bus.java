@@ -12,7 +12,7 @@ public class Bus {
     // s4170411 -> Last updated 27th May
     public Bus(String busID, int capacity, double fuelLevel, String fuelType) {
         setBusID(busID);
-        this.capacity = capacity;
+        setCapacity(capacity);
         this.fuelLevel = fuelLevel;
         setFuelType(fuelType);
     }
@@ -31,7 +31,14 @@ public class Bus {
     public String getFuelType() {
         return fuelType;
     }
+    // Capacity setter
 
+    public void setCapacity(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Capacity must be non-negative number");
+        }
+        this.capacity = capacity;
+    }
     // Fuel type setter
     public void setFuelType(String fuelType) {
         if (!fuelType.matches("^(Diesel|Hybrid|Electricity)$")) {

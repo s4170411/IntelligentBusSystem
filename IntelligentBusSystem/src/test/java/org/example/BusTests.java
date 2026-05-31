@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BusTests {
@@ -17,6 +19,7 @@ class BusTests {
     private Driver createExampleDriver(String birthdate, int experience, String licenseType) {
         return new Driver("54!DASJDD", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
     }
+
     @Test
     // Test case 1 : Valid
     void testValidBusID() {
@@ -38,5 +41,57 @@ class BusTests {
         assertThrows(IllegalArgumentException.class, () -> new Bus("8392a210", 50, 100.0, "Diesel"));
     }
     
+    // Test case 4 : Capacity valid 
+    @Test
+    @DisplayName("Bus Test Case 4: Check valid busCapacity during update")
+    void testValidDecreaseCapacity() {
+        Bus updatedBus = new Bus("11112222", 45, 100.0, "Diesel");
+        assertDoesNotThrow(() -> exampleBus.updateBus(updatedBus));
+        assertEquals(45, exampleBus.getCapacity());
+    }
 
+    // Test case 5 : Capacity invalid
+    @Test
+    @DisplayName("Bus Test Case 5: Check invalid busCapacity during update")
+    void testInvalidDecreaseCapacity() {
+        Bus updatedBus = new Bus("11112222", 60, 100.0, "Diesel");
+        assertDoesNotThrow(() -> exampleBus.updateBus(updatedBus));
+        assertEquals(45, exampleBus.getCapacity());
+    }
+
+    // Test case 6 : Check capacity negative number 
+    @Test
+    @DisplayName("Bus Test Case 6: Check negative busCapacity during update")
+    void testNegativeCapacity() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Bus("11112222", -5, 100.0, "Diesel"));
+    }
+
+    @Test
+    @DisplayName("Test case 7: Check for valid bus age restrictions (Age 35, Cap 55)")
+    // Test case 7 : Check valid bus age restriction
+    void testValidAgeRestriction() {
+        Driver driverAge35 = createExampleDriver("01-01-1991", 10, "Heavy");
+        Bus largeBus = new Bus("33334444", 55, 100.0, "Diesel");
+        assertDoesNotThrow(() -> largeBus.checkDriverBusRestrictions(driverAge35));
+    }
+
+    @Test
+    @DisplayName("Test case 8: Check for invalid bus age restrictions (Age 55, Cap 67)")
+    // Test case 8 : Check invalid bus age restriction
+    void testInvalidAgeRestriction() {
+        Driver driverAge55 = createExampleDriver("01-01-1971", 10, "Heavy");
+        Bus largeBus = new Bus("33334444", 67, 100.0, "Diesel");
+        assertDoesNotThrow(() -> largeBus.checkDriverBusRestrictions(driverAge55));
+    }
+
+    @Test
+    @DisplayName("Test case 9: Check for edge case bus age restrictions (Age 50, Cap 56)")
+        // Test case 9 : Check edge case bus age restriction
+    void testEdgeAgeRestriction() {
+        Driver driverAge50 = createExampleDriver("01-01-1976", 10, "Heavy");
+        Bus largeBus = new Bus("33334444", 56, 100.0, "Diesel");
+        assertDoesNotThrow(() -> largeBus.checkDriverBusRestrictions(driverAge50));
+    }
+    
 }
