@@ -100,7 +100,7 @@ class BusTests {
     // Test case 10 : Check electric valid driver experience restriction
     void testValidElectricRestriction() {
         Driver driverExperience6 = createExampleDriver("01-01-1990", 6, "Heavy");
-        Bus electricBus = new Bus("33334444", 40, 100.0, "Electric");
+        Bus electricBus = new Bus("33334444", 40, 100.0, "Electricity");
         assertDoesNotThrow(() -> electricBus.checkDriverBusRestrictions(driverExperience6));
     }
 
@@ -109,7 +109,7 @@ class BusTests {
     // Test case 11 : Check electric invalid driver experience restriction
     void testInvalidElectricRestriction() {
         Driver driverExperience1 = createExampleDriver("01-01-1990", 1, "Heavy");
-        Bus electricBus = new Bus("33334444", 40, 100.0, "Electric");
+        Bus electricBus = new Bus("33334444", 40, 100.0, "Electricity");
         assertThrows(IllegalArgumentException.class, () -> electricBus.checkDriverBusRestrictions(driverExperience1));
     }
 
@@ -118,10 +118,18 @@ class BusTests {
     // Test case 12 : Check electric valid driver experience edge case restriction
     void testEdgeCaseElectricRestriction() {
         Driver driverExperience5 = createExampleDriver("01-01-1990", 5, "Heavy");
-        Bus electricBus = new Bus("33334444", 40, 100.0, "Electric");
+        Bus electricBus = new Bus("33334444", 40, 100.0, "Electricity");
         assertDoesNotThrow(() -> electricBus.checkDriverBusRestrictions(driverExperience5));
     }
 
+    @Test
+    @DisplayName("Test case 13: Check valid license type restrictions for heavy, hybrid")
+    // Test case 13 : Check valid license type restrictions for heavy, hybrid"
+    void testHeavyLicenseHybrid() {
+        Driver heavyDriver = createExampleDriver("01-01-1990", 10, "Heavy");
+        Bus hybridBus = new Bus("77778888", 40, 100.0, "Hybrid");
+        assertDoesNotThrow(() -> hybridBus.checkDriverBusRestrictions(heavyDriver));
+    }
     
     
 }
