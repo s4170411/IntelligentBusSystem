@@ -17,7 +17,7 @@ class BusTests {
     }
     // Generate a valid driver
     private Driver createExampleDriver(String birthdate, int experience, String licenseType) {
-        return new Driver("54!DASJDD", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
+        return new Driver("$%123456AZ", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
     }
 
     @Test
@@ -71,7 +71,7 @@ class BusTests {
     @DisplayName("Test case 7: Check for valid bus age restrictions (Age 35, Cap 55)")
     // Test case 7 : Check valid bus age restriction
     void testValidAgeRestriction() {
-        Driver driverAge35 = createExampleDriver("01-01-1991", 10, "Heavy");
+        Driver driverAge35 = createExampleDriver( "01-01-1991", 10, "Heavy");
         Bus largeBus = new Bus("33334444", 55, 100.0, "Diesel");
         assertDoesNotThrow(() -> largeBus.checkDriverBusRestrictions(driverAge35));
     }
