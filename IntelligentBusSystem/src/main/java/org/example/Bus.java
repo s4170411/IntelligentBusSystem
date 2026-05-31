@@ -70,7 +70,7 @@ public class Bus {
         if (updatedBus.getCapacity() > this.capacity) {
             throw new IllegalArgumentException("Capacity cannot be increased during an update");
         }
-        this.capacity = updatedBus.getCapacity();
+        this.setCapacity(updatedBus.getCapacity());
         this.fuelLevel = updatedBus.getFuelLevel();
         this.setFuelType(updatedBus.getFuelType());
     }
