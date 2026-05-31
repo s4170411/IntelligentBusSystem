@@ -2,6 +2,7 @@ package org.example;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -39,26 +40,103 @@ public class BusRepository {
 
     }
 
-    public void update(String busID) {
-
+    public void update(Bus updatedBus) {
         // Same reader as "add" method
         JSONParser parser = new JSONParser();
         JSONArray busList = new JSONArray();
+        boolean busFound = false;
+
         try (FileReader fileRead = new FileReader("busRepo.json")) {
             busList = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             throw new RuntimeException("No buses exist to update");
         }
 
+        for (Object obj : busList) {
+            JSONObject jsonBus = (JSONObject) obj;
+
+            if (jsonBus.get("busID").equals(updatedBus.getBusID())) {
+                jsonBus.put("capacity", updatedBus.getCapacity());
+                jsonBus.put("fuelType", updatedBus.getFuelType());
+                jsonBus.put("fuelLevel", updatedBus.getFuelLevel());
+
+                busFound = true;
+                break;
+
+            }
+        }
+
+        if (!busFound) {
+            throw new IllegalArgumentException(updatedBus.getBusID() + " does not exist in JSON");
+        }
+
+        try (FileWriter file = new FileWriter("output.json")){
+            file.write(busList.toJSONString());
+            file.flush();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save update to JSON", e);
+        }
+    }
+
+
+    // Method overload, either returns all buses or specified ID
+    public List<Bus> retrieve() {
+        JSONParser parser = new JSONParser();
+        JSONArray busArray = new JSONArray();
+        List<Bus> busList = new ArrayList<>();
+        try (FileReader fileRead = new FileReader("busRepo.json")) {
+            busArray = (JSONArray) parser.parse(fileRead);
+        } catch (Exception e) {
+            // Proceed with empty list
+        }
+        for (Object obj : busArray) {
+            JSONObject jsonBus = (JSONObject) obj;
+
+            String busID = (String) jsonBus.get("busID");
+            int capacity = ((Long) jsonBus.get("capacity")).intValue();
+            double fuelLevel = ((Number) jsonBus.get("fuelLevel")).doubleValue();
+            String fuelType = (String) jsonBus.get("fuelType");
+
+            // Add the translated Java object to our list
+            busList.add(new Bus(busID, capacity, fuelLevel, fuelType));
+        }
+        return busList;
+    }
+    public Bus retrieve(String busID) {
+            
+        JSONParser parser = new JSONParser();
+        JSONArray busArray = new JSONArray();
+
+        try (FileReader fileRead = new FileReader("busRepo.json")) {
+            busArray = (JSONArray) parser.parse(fileRead);
+        } catch (Exception e) {
+            // Proceed with empty list
+        }
+        for (Object obj : busArray) {
+            JSONObject jsonBus = (JSONObject) obj;
+            if (jsonBus.get("busID").equals(busID)) {
+
+                int capacity = ((Long) jsonBus.get("capacity")).intValue();
+                double fuelLevel = ((Number) jsonBus.get("fuelLevel")).doubleValue();
+                String fuelType = (String) jsonBus.get("fuelType");
+
+                return new Bus(busID, capacity, fuelLevel, fuelType);
+            }
+        }
+        throw new IllegalArgumentException(busID + " does not exist in JSON");
 
 
     }
 
-    public void retrieve(Bus bus) {
-
+    // return count of buses
+    public int count (Bus bus) {
+        JSONParser parser = new JSONParser();
+        JSONArray busList = new JSONArray();
+        try (FileReader fileRead = new FileReader("busRepo.json")) {
+            busList = (JSONArray) parser.parse(fileRead);
+        } catch (Exception e) {
+            // Proceed with empty list
+        }
+        return busList.size();
     }
-    
-    public void count (Bus bus) {
-
-    }
-}
+}   
