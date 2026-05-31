@@ -25,6 +25,7 @@ class BusTests {
     void testValidBusID() {
         assertDoesNotThrow(() -> new Bus("12345678", 35, 60.0, "Hybrid"));
     }
+    
     // Test case 2 : 8 Characters
     @Test
     @DisplayName("Bus Test Case 2 : Check BusID 8 Characters")
@@ -142,7 +143,7 @@ class BusTests {
 
     @Test
     @DisplayName("Test case 15: Check invalid license type restrictions for medium with hybrid")
-    // Test case 14 : Check invalid license type restrictions for medium with electricity"
+    // Test case 15 : Check invalid license type restrictions for medium with hybrid"
     void testHeavyLicenseMediumHybrid() {
         Driver mediumDriver = createExampleDriver("01-01-1990", 10, "medium");
         Bus hybridBus = new Bus("77778888", 40, 100.0, "Hybrid");
