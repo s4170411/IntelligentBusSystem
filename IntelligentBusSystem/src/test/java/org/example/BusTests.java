@@ -88,11 +88,40 @@ class BusTests {
 
     @Test
     @DisplayName("Test case 9: Check for edge case bus age restrictions (Age 50, Cap 56)")
-        // Test case 9 : Check edge case bus age restriction
+    // Test case 9 : Check edge case bus age restriction
     void testEdgeAgeRestriction() {
         Driver driverAge50 = createExampleDriver("01-01-1976", 10, "Heavy");
         Bus largeBus = new Bus("33334444", 56, 100.0, "Diesel");
         assertDoesNotThrow(() -> largeBus.checkDriverBusRestrictions(driverAge50));
     }
+
+    @Test
+    @DisplayName("Test case 10: Check for valid electric bus restrictions")
+    // Test case 10 : Check electric valid driver experience restriction
+    void testValidElectricRestriction() {
+        Driver driverExperience6 = createExampleDriver("01-01-1990", 6, "Heavy");
+        Bus electricBus = new Bus("33334444", 40, 100.0, "Electric");
+        assertDoesNotThrow(() -> electricBus.checkDriverBusRestrictions(driverExperience6));
+    }
+
+    @Test
+    @DisplayName("Test case 11: Check for invalid electric bus restrictions")
+    // Test case 11 : Check electric invalid driver experience restriction
+    void testInvalidElectricRestriction() {
+        Driver driverExperience1 = createExampleDriver("01-01-1990", 1, "Heavy");
+        Bus electricBus = new Bus("33334444", 40, 100.0, "Electric");
+        assertThrows(IllegalArgumentException.class, () -> electricBus.checkDriverBusRestrictions(driverExperience1));
+    }
+
+    @Test
+    @DisplayName("Test case 12: Check for valid electric bus edge case restrictions")
+    // Test case 12 : Check electric valid driver experience edge case restriction
+    void testEdgeCaseElectricRestriction() {
+        Driver driverExperience5 = createExampleDriver("01-01-1990", 5, "Heavy");
+        Bus electricBus = new Bus("33334444", 40, 100.0, "Electric");
+        assertDoesNotThrow(() -> electricBus.checkDriverBusRestrictions(driverExperience5));
+    }
+
+    
     
 }
