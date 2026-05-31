@@ -10,6 +10,6 @@ public class Main {
         busRepo.add(testBus);
 
         System.out.println("busRepo.json : ");
-        System.out.println(busRepo());
+        System.out.println(busRepo.retrieve());
     }
 }
