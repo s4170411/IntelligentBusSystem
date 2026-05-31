@@ -125,10 +125,28 @@ class BusTests {
     @Test
     @DisplayName("Test case 13: Check valid license type restrictions for heavy, hybrid")
     // Test case 13 : Check valid license type restrictions for heavy, hybrid"
-    void testHeavyLicenseHybrid() {
+    void testHeavyLicenseHeavyHybrid() {
         Driver heavyDriver = createExampleDriver("01-01-1990", 10, "Heavy");
         Bus hybridBus = new Bus("77778888", 40, 100.0, "Hybrid");
         assertDoesNotThrow(() -> hybridBus.checkDriverBusRestrictions(heavyDriver));
+    }
+
+    @Test
+    @DisplayName("Test case 14: Check invalid license type restrictions for light with electricity")
+    // Test case 14 : Check invalid license type restrictions for light with electricity"
+    void testHeavyLicenseLightElectric() {
+        Driver lightDriver = createExampleDriver("01-01-1990", 10, "Light");
+        Bus electricBus = new Bus("77778888", 40, 100.0, "Electricity");
+        assertThrows(IllegalArgumentException.class, () -> electricBus.checkDriverBusRestrictions(lightDriver));
+    }
+
+    @Test
+    @DisplayName("Test case 15: Check invalid license type restrictions for medium with hybrid")
+    // Test case 14 : Check invalid license type restrictions for medium with electricity"
+    void testHeavyLicenseMediumHybrid() {
+        Driver mediumDriver = createExampleDriver("01-01-1990", 10, "medium");
+        Bus hybridBus = new Bus("77778888", 40, 100.0, "Hybrid");
+        assertThrows(IllegalArgumentException.class, () -> hybridBus.checkDriverBusRestrictions(mediumDriver));
     }
     
     
