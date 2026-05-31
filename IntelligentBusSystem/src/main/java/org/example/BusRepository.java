@@ -56,9 +56,13 @@ public class BusRepository {
             JSONObject jsonBus = (JSONObject) obj;
 
             if (jsonBus.get("busID").equals(updatedBus.getBusID())) {
-                jsonBus.put("capacity", updatedBus.getCapacity());
-                jsonBus.put("fuelType", updatedBus.getFuelType());
-                jsonBus.put("fuelLevel", updatedBus.getFuelLevel());
+                // Use Bus.java update method to catch test cases
+                Bus currentBus = new Bus((String) jsonBus.get("busID"), ((Long) jsonBus.get("capacity")).intValue(), ((Number) jsonBus.get("fuelLevel")).doubleValue(), (String) jsonBus.get("fuelType"));
+                currentBus.updateBus(updatedBus);
+
+                jsonBus.put("capacity", currentBus.getCapacity());
+                jsonBus.put("fuelType", currentBus.getFuelType());
+                jsonBus.put("fuelLevel", currentBus.getFuelLevel());
 
                 busFound = true;
                 break;
@@ -70,7 +74,7 @@ public class BusRepository {
             throw new IllegalArgumentException(updatedBus.getBusID() + " does not exist in JSON");
         }
 
-        try (FileWriter file = new FileWriter("output.json")){
+        try (FileWriter file = new FileWriter("busRepo.json")){
             file.write(busList.toJSONString());
             file.flush();
         } catch (IOException e) {
