@@ -104,7 +104,7 @@ class DriverTests {
         Driver tenYearDriver = new Driver("23@#45ABCD", "John Smith", 10, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
         Driver updatedDriver = new Driver("23@#45ABCD", "John Smith", 10, "Medium", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
         assertDoesNotThrow(() -> tenYearDriver.updateDriver(updatedDriver));
-        assertEquals("Heavy", tenYearDriver.getLicenseType());
+        assertEquals("Medium", tenYearDriver.getLicenseType());
     }
     @Test
     @DisplayName("Test Case 13: Check that driverID cannot be modified during update operation")
