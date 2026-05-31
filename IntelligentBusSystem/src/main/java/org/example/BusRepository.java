@@ -133,7 +133,7 @@ public class BusRepository {
     }
 
     // return count of buses
-    public int count (Bus bus) {
+    public int count () {
         JSONParser parser = new JSONParser();
         JSONArray busList = new JSONArray();
         try (FileReader fileRead = new FileReader("busRepo.json")) {
