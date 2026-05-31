@@ -17,7 +17,7 @@ class BusTests {
     }
     // Generate a valid driver
     private Driver createExampleDriver(String birthdate, int experience, String licenseType) {
-        return new Driver("123#$456AZ", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
+        return new Driver("463#$456AZ", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
     }
 
     @Test
@@ -55,8 +55,9 @@ class BusTests {
     @DisplayName("Bus Test Case 5: Check invalid busCapacity during update")
     void testInvalidDecreaseCapacity() {
         Bus updatedBus = new Bus("11112222", 60, 100.0, "Diesel");
-        assertDoesNotThrow(() -> exampleBus.updateBus(updatedBus));
-        assertEquals(45, exampleBus.getCapacity());
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> exampleBus.updateBus(updatedBus));
+        assertTrue(exception.getMessage().contains("Capacity cannot be increased"));
     }
 
     // Test case 6 : Check capacity negative number 
