@@ -17,7 +17,7 @@ class BusTests {
     }
     // Generate a valid driver
     private Driver createExampleDriver(String birthdate, int experience, String licenseType) {
-        return new Driver("$%123456AZ", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
+        return new Driver("123#$456AZ", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
     }
 
     @Test
