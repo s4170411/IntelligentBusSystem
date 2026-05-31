@@ -7,23 +7,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DriverTests {
-    private Bus exampleBus;
+
+    private Driver exampleDriver;
 
     @BeforeEach
     void setUp() {
-        exampleBus = new Bus("11112222", 50, 100.0, "Diesel");
+        exampleDriver = new Driver("23@#45ABCD", "John Smith", 12, "Heavy", "10|RMIT|Melbourne|Victoria|Australia", "01-01-2000");;
     }
-    // Generate a valid driver
-    private Driver createExampleDriver(String birthdate, int experience, String licenseType) {
-        return new Driver("463#$456AZ", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
-    }
+
 
     @Test
+    @DisplayName("Driver Test Case 1 : Valid Driver ID")
     // Test case 1 : Valid
-    void testValidBusID() {
-        assertDoesNotThrow(() -> new Bus("12345678", 35, 60.0, "Hybrid"));
+    void testValidDriverID() {
+        assertDoesNotThrow(() -> new Driver("23@#64psAB", "Test Name", 5, "Light", "10|Street|City|State|Country", "10-10-1999"));
     }
 
-    
     
 }
