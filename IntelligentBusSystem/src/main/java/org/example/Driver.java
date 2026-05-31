@@ -42,6 +42,12 @@ public class Driver {
         if (specialCount < 2) {
             throw new IllegalArgumentException("Driver ID must contain at least two special characters between positions 3 and 8.");
         }
+        for (int i = 8; i <= 9; i++) {
+            char c = driverID.charAt(i);
+            if (c < 'A' || c > 'Z') {
+                throw new IllegalArgumentException("The last two characters must be uppercase letters.");
+            }
+        }
         this.driverID = driverID;
     }
 
