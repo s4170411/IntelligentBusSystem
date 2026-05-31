@@ -12,7 +12,7 @@ public class Bus {
     // s4170411 -> Last updated 27th May
     public Bus(String busID, int capacity, double fuelLevel, String fuelType) {
         setBusID(busID);
-        this.capacity = capacity;
+        setCapacity(capacity);
         this.fuelLevel = fuelLevel;
         setFuelType(fuelType);
     }
@@ -31,7 +31,14 @@ public class Bus {
     public String getFuelType() {
         return fuelType;
     }
+    // Capacity setter
 
+    public void setCapacity(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Capacity must be non-negative number");
+        }
+        this.capacity = capacity;
+    }
     // Fuel type setter
     public void setFuelType(String fuelType) {
         if (!fuelType.matches("^(Diesel|Hybrid|Electricity)$")) {
@@ -56,6 +63,13 @@ public class Bus {
     // B2 : Capacity, allow decrease during operations, not increase
     // To stick to proper OOP, take a new temporary bus (updatedBus), and use it to update an existing bus
     public void updateBus(Bus updatedBus) {
+
+        if (updatedBus.getCapacity() < 0) {
+            throw new IllegalArgumentException("Capacity cannot be negative");
+        }
+        if (updatedBus.getCapacity() > this.capacity) {
+            throw new IllegalArgumentException("Capacity cannot be increased during an update");
+        }
         this.capacity = updatedBus.getCapacity();
         this.fuelLevel = updatedBus.getFuelLevel();
         this.setFuelType(updatedBus.getFuelType());
@@ -71,7 +85,7 @@ public class Bus {
         // Could just expect the format, substring last four chars, for completeness’s sake though, run it through a datetime parser
         String dateTimeStrBirthdate = driver.getBirthdate();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         LocalDate driverBirthDate = LocalDate.parse(dateTimeStrBirthdate, formatter);
 
