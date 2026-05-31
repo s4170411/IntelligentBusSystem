@@ -111,4 +111,20 @@ public class Driver {
         }
         this.birthdate = birthdate;
     }
+
+    public void updateDriver(Driver updatedDriver) {
+        if (!this.driverID.equals(updatedDriver.getDriverID())) {
+            throw new IllegalArgumentException("Driver ID cannot be changed during an update.");
+        }
+        if (!this.name.equals(updatedDriver.getName())) {
+            throw new IllegalArgumentException("Driver name cannot be changed during an update.");
+        }
+        if (this.experienceYears > 10 && !this.licenseType.equals(updatedDriver.getLicenseType())) {
+            throw new IllegalArgumentException("Cannot change license type for a driver with more than 10 years of experience.");
+        }
+        this.experienceYears = updatedDriver.getExperienceYears();
+        this.licenseType = updatedDriver.getLicenseType();
+        setAddress(updatedDriver.getAddress());
+        setBirthdate(updatedDriver.getBirthdate());
+    }
 }

@@ -75,29 +75,30 @@ public class DriverRepository {
 
     public boolean update(String driverID, Driver updatedDriver) {
         JSONArray jsonArray = loadDrivers();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject existing = (JSONObject) jsonArray.get(i);
-            if (existing.get("driverID").equals(driverID)) {
-                if (!existing.get("driverID").equals(updatedDriver.getDriverID())) {
-                    throw new IllegalArgumentException("Driver ID cannot be changed during an update.");
-                }
-                if (!existing.get("name").equals(updatedDriver.getName())) {
-                    throw new IllegalArgumentException("Driver name cannot be changed during an update.");
-                }
-                if (((Long) existing.get("experienceYears")).intValue() > 10 && !existing.get("licenseType").equals(updatedDriver.getLicenseType())) {
-                    throw new IllegalArgumentException("Cannot change license type for a driver with more than 10 years of experience.");
-                }
-                JSONObject updatedObject = new JSONObject();
-                updatedObject.put("driverID", updatedDriver.getDriverID());
-                updatedObject.put("name", updatedDriver.getName());
-                updatedObject.put("experienceYears", updatedDriver.getExperienceYears());
-                updatedObject.put("licenseType", updatedDriver.getLicenseType());
-                updatedObject.put("address", updatedDriver.getAddress());
-                updatedObject.put("birthdate", updatedDriver.getBirthdate());
-                jsonArray.set(i, updatedObject);
-                saveDrivers(jsonArray);
-                return true;
+        boolean driverFound = false;
+        for (Object obj : jsonArray) {
+            JSONObject jsonDriver = (JSONObject) obj;
+            if (jsonDriver.get("driverID").equals(driverID)) {
+                Driver currentDriver = new Driver(
+                    (String) jsonDriver.get("driverID"),
+                    (String) jsonDriver.get("name"),
+                    ((Long) jsonDriver.get("experienceYears")).intValue(),
+                    (String) jsonDriver.get("licenseType"),
+                    (String) jsonDriver.get("address"),
+                    (String) jsonDriver.get("birthdate")
+                );
+                currentDriver.updateDriver(updatedDriver);
+                jsonDriver.put("experienceYears", currentDriver.getExperienceYears());
+                jsonDriver.put("licenseType", currentDriver.getLicenseType());
+                jsonDriver.put("address", currentDriver.getAddress());
+                jsonDriver.put("birthdate", currentDriver.getBirthdate());
+                driverFound = true;
+                break;
             }
+        }
+        if (driverFound) {
+            saveDrivers(jsonArray);
+            return true;
         }
         return false;
     }
