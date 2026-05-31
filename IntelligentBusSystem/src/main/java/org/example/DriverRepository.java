@@ -70,7 +70,7 @@ public class DriverRepository {
                 );
             }
         }
-        return null;
+        throw new IllegalArgumentException(driverID + " does not exist in the repository.");
     }
 
     public boolean update(String driverID, Driver updatedDriver) {
