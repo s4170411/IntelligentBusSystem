@@ -58,5 +58,24 @@ class DriverTests {
         assertThrows(IllegalArgumentException.class, () -> new Driver("23@#45pgAB", "Test Name", 5, "Light", "10,Morrison,Melbourne,Victoria,Australia", "10-10-1999"));
     }
 
+    @Test
+    @DisplayName("Driver Test Case 7 : Birthdate valid format")
+    // Test case 7 : Birthdate valid format
+    void testValidDriverBirthdate() {
+        assertDoesNotThrow(() -> new Driver("23@#45pgAB", "Test Name", 5, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000"));
+    }
 
+    @Test
+    @DisplayName("Driver Test Case 8 : Possible birthday, allowed to drive/alive")
+    // Test case 8 : Possible birthday, allowed to drive/alive
+    void testInvalidDriverBirthdate() {
+        assertThrows(IllegalArgumentException.class, () -> new Driver("23@#45pgAB", "Test Name", 5, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-09-2026"));
+    }
+
+    @Test
+    @DisplayName("Driver Test Case 9 : Invalid Birthday Separator")
+    // Test case 9 : Invalid Birthday Separator
+    void testInvalidDriverBirthdateSeparator() {
+        assertThrows(IllegalArgumentException.class, () -> new Driver("23@#45pgAB", "Test Name", 5, "Light", "10,Morrison,Melbourne,Victoria,Australia", "10/08/2000"));
+    }
 }
