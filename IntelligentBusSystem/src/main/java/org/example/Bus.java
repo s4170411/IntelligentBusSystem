@@ -78,7 +78,7 @@ public class Bus {
         // Could just expect the format, substring last four chars, for completeness’s sake though, run it through a datetime parser
         String dateTimeStrBirthdate = driver.getBirthdate();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         LocalDate driverBirthDate = LocalDate.parse(dateTimeStrBirthdate, formatter);
 
