@@ -10,9 +10,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class DriverRepository {
+    String filePath;
 
+    public DriverRepository(String filePath) {
+        this.filePath = filePath;
+    }
     private JSONArray loadDrivers() {
-        File file = new File("driverRepo.json");
+        File file = new File(filePath);
         if (!file.exists()) {
             return new JSONArray();
         }
@@ -27,7 +31,7 @@ public class DriverRepository {
 
     private void saveDrivers(JSONArray jsonArray) {
         try {
-            FileWriter file = new FileWriter("driverRepo.json");
+            FileWriter file = new FileWriter(filePath);
             file.write(jsonArray.toJSONString());
             file.close();
         } catch (IOException e) {
