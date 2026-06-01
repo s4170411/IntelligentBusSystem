@@ -37,7 +37,7 @@ public class BusRepository {
         jsonObject.put("fuelLevel", bus.getFuelLevel());
 
         busList.add(jsonObject);
-        try(FileWriter file = new FileWriter("busRepo.json")) {
+        try(FileWriter file = new FileWriter(filePath)) {
             file.write(busList.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -80,7 +80,7 @@ public class BusRepository {
             throw new IllegalArgumentException(updatedBus.getBusID() + " does not exist in JSON");
         }
 
-        try (FileWriter file = new FileWriter("filePath")){
+        try (FileWriter file = new FileWriter(filePath)){
             file.write(busList.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -94,7 +94,7 @@ public class BusRepository {
         JSONParser parser = new JSONParser();
         JSONArray busArray = new JSONArray();
         List<Bus> busList = new ArrayList<>();
-        try (FileReader fileRead = new FileReader("filePath")) {
+        try (FileReader fileRead = new FileReader(filePath)) {
             busArray = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             // Proceed with empty list
@@ -117,7 +117,7 @@ public class BusRepository {
         JSONParser parser = new JSONParser();
         JSONArray busArray = new JSONArray();
 
-        try (FileReader fileRead = new FileReader("filePath")) {
+        try (FileReader fileRead = new FileReader(filePath)) {
             busArray = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             // Proceed with empty list

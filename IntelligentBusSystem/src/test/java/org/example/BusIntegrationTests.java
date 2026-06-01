@@ -20,16 +20,17 @@ class BusIntegrationTests {
         Path jsonPath = tempDir.resolve("busRepo.json");
         repository = new BusRepository(jsonPath.toString());
     }
-    // Generate a valid driver
-    private Driver createExampleDriver(String birthdate, int experience, String licenseType) {
-        return new Driver("463#$456AZ", "Test Driver", experience, licenseType, "1|Example St|City|State|Country", birthdate);
-    }
 
     @Test
-    // Test case 1 : Valid
-    @DisplayName("Bus Test Case 1 : Check BusID Valid")
-    void testValidBusID() {
-        assertDoesNotThrow(() -> new Bus("12345678", 35, 60.0, "Hybrid"));
+    @DisplayName("Bus Test Case 1 : store and retrieve bus")
+    void testBusStoreRetrieve() {
+        Bus newBus = new Bus("94683370", 40, 80.0, "Diesel");
+        repository.add(newBus);
+
+        Bus retrieved = repository.retrieve("94683370");
+        assertNotNull(retrieved);
+        assertEquals(40, retrieved.getCapacity());
+        assertEquals("Diesel", retrieved.getFuelType());
     }
     
 }
