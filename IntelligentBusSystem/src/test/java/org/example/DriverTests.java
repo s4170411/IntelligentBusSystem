@@ -88,7 +88,7 @@ class DriverTests {
     }
 
     @Test
-    @DisplayName("Driver Test Case 11 : Check if driver has less than 10 years experience, DOES allow license type to be updated")
+    @DisplayName("Driver Test Case 11 : driver has less than 10 years experience, DOES allow license type to be updated")
     // Test case 11 : Driver has less than 10 years experience, is allowed to update license type
     void testLicenseTypeAllowChange() {
         Driver juniorDriver = new Driver("23@#45ABCD", "John Smith", 8, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
@@ -98,7 +98,7 @@ class DriverTests {
     }
 
     @Test
-    @DisplayName("Driver Test Case 12 : Check if driver has 10 years experience, DOES allow license type to be updated")
+    @DisplayName("Driver Test Case 12 : driver has 10 years experience, DOES allow license type to be updated")
     // Test case 12 : Driver has 10 years experience, is allowed to update license type
     void testLicenseTypeAllowChangeDecade() {
         Driver tenYearDriver = new Driver("23@#45ABCD", "John Smith", 10, "Light", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
@@ -107,11 +107,26 @@ class DriverTests {
         assertEquals("Medium", tenYearDriver.getLicenseType());
     }
     @Test
-    @DisplayName("Test Case 13: Check that driverID cannot be modified during update operation")
+    @DisplayName("Driver Test Case 13: driverID cannot be modified during update operation")
     // Test case 13 : Check that driverID cannot be modified during update operation
-    void testCase13_ImmutableDriverID() {
+    void testImmutableDriverID() {
         Driver updatedDriver = new Driver("34@#67EFGH", "John Smith", 12, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
         assertThrows(IllegalArgumentException.class, () -> exampleDriver.updateDriver(updatedDriver));
     }
-
+    @Test
+    @DisplayName("Driver Test Case 14: Driver name cannot be modified during update operation")
+    // Test case 14 : Driver name cannot be modified during update operation
+    void testImmutableDriverName() {
+        Driver updatedDriver = new Driver("23@#45ABCD", "Michael Smith", 12, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
+        assertThrows(IllegalArgumentException.class, () -> exampleDriver.updateDriver(updatedDriver));
+    }
+    @Test
+    @DisplayName("Driver Test Case 15: Other fields are able to be modified during update operation")
+    // Test case 15 : Other fields are able to be modified during update operation
+    void testMutableAddress() {
+        Driver updatedDriver = new Driver("23@#45ABCD", "John Smith", 12, "Heavy", "25|Crescent|Melbourne|Victoria|Australia", "10-08-2000");
+        assertDoesNotThrow(() -> exampleDriver.updateDriver(updatedDriver));
+        assertEquals("25|Crescent|Melbourne|Victoria|Australia", exampleDriver.getAddress());
+    }
+    
 }
