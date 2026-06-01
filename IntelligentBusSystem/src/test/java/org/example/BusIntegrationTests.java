@@ -59,11 +59,11 @@ class BusIntegrationTests {
     @Test
     @DisplayName("Bus Test Case 4: Bus record counts are updated correctly")
     void testBusRecordCount() {
-        assertEquals(0, repository.retrieve().size());
+        assertEquals(0, repository.count());
 
         repository.add(new Bus("94683370", 40, 80.0, "Diesel"));
 
-        assertEquals(1, repository.retrieve().size());
+        assertEquals(1, repository.count());
     }
     
 }

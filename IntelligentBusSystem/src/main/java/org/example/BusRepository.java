@@ -142,7 +142,7 @@ public class BusRepository {
     public int count () {
         JSONParser parser = new JSONParser();
         JSONArray busList = new JSONArray();
-        try (FileReader fileRead = new FileReader("filePath")) {
+        try (FileReader fileRead = new FileReader(filePath)) {
             busList = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             // Proceed with empty list
