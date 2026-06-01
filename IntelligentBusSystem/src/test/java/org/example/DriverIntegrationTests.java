@@ -35,6 +35,7 @@ class DriverIntegrationTests {
 
     @Test
     @DisplayName("Test Case 2: Reject invalid driver record")
+    // Test case 2 : Reject an invalid driver record
     void testRejectInvalidDriver() {
   
         assertThrows(IllegalArgumentException.class, () -> {
@@ -44,7 +45,8 @@ class DriverIntegrationTests {
     }
 
     @Test
-    @DisplayName("Test Case 3: Updates are persisted correctly")
+    @DisplayName("Test Case 3: Updates are retained correctly")
+    // Test case 3 : Updates retain changes
     void testUpdateDriverPersistence() {
         Driver originalDriver = new Driver("23@#45pgAB", "John Vale", 5, "Heavy", "12|King|Melbourne|Victoria|Australia", "10-10-1995");
         repository.add(originalDriver);
@@ -59,6 +61,7 @@ class DriverIntegrationTests {
 
     @Test
     @DisplayName("Test Case 4: Driver record counts are updated correctly")
+    // Test case 4 : Count is updated properly
     void testDriverRecordCount() {
         assertEquals(0, repository.count());
 
