@@ -35,7 +35,7 @@ class BusIntegrationTests {
     }
     @Test
     @DisplayName("Bus Test Case 2: Reject invalid bus record")
-    // Test case 2 : Reject and invalid bus record
+    // Test case 2 : Reject an invalid bus record
     void testRejectInvalidBus() {
         assertThrows(IllegalArgumentException.class, () -> {
             Bus invalidBus = new Bus("123", 40, 80.0, "Diesel");
@@ -44,7 +44,7 @@ class BusIntegrationTests {
     }
     @Test
     @DisplayName("Bus Test Case 3: Updates are persisted correctly")
-    // Test case 3 : 
+    // Test case 3 : Retain updates to bus
     void testUpdateBusPersistence() {
         Bus originalBus = new Bus("94683370", 40, 80.0, "Diesel");
         repository.add(originalBus);
@@ -58,6 +58,7 @@ class BusIntegrationTests {
 
     @Test
     @DisplayName("Bus Test Case 4: Bus record counts are updated correctly")
+    // Test case 3 : Check counts are updated
     void testBusRecordCount() {
         assertEquals(0, repository.retrieve().size());
 
