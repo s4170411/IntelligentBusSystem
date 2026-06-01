@@ -32,4 +32,39 @@ class DriverIntegrationTests {
         assertNotNull(retrieved);
         assertEquals("John Vale", retrieved.getName());
     }
+
+    @Test
+    @DisplayName("Test Case 2: Reject invalid driver record")
+    void testRejectInvalidDriver() {
+  
+        assertThrows(IllegalArgumentException.class, () -> {
+            Driver invalidDriver = new Driver("1234", "John Vale", 5, "Heavy", "10|King St|Melbourne|VIC|Australia", "10-10-1995");
+            repository.add(invalidDriver);
+        });
+    }
+
+    @Test
+    @DisplayName("Test Case 3: Updates are persisted correctly")
+    void testUpdateDriverPersistence() {
+        Driver originalDriver = new Driver("23@#45pgAB", "John Vale", 5, "Heavy", "12|King|Melbourne|Victoria|Australia", "10-10-1995");
+        repository.add(originalDriver);
+
+        Driver updatedDriver = new Driver("23@#45pgAB", "John Vale", 5, "Heavy", "20|Hallow|Melbourne|Victoria|Australia", "10-10-1995");
+
+        repository.update("23@#45pgAB", updatedDriver);
+
+        Driver retrieved = repository.retrieve("23@#45pgAB");
+        assertEquals("20|Hallow|Melbourne|Victoria|Australia", retrieved.getAddress());
+    }
+
+    @Test
+    @DisplayName("Test Case 4: Driver record counts are updated correctly")
+    void testDriverRecordCount() {
+        assertEquals(0, repository.count());
+
+        repository.add(new Driver("23@#45pgAB", "John Vale", 5, "Heavy", "10|King St|Melbourne|VIC|Australia", "10-10-1995"));
+
+        assertEquals(1, repository.count());
+    }
+    
 }
