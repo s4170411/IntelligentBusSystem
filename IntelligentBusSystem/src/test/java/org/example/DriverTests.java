@@ -117,14 +117,14 @@ class DriverTests {
     @DisplayName("Driver Test Case 14: Driver name cannot be modified during update operation")
     // Test case 14 : Driver name cannot be modified during update operation
     void testImmutableDriverName() {
-        Driver updatedDriver = new Driver("23@#45ABCD", "Michael Smith", 12, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
+        Driver updatedDriver = new Driver("23@#45pgAB", "Michael Smith", 12, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
         assertThrows(IllegalArgumentException.class, () -> exampleDriver.updateDriver(updatedDriver));
     }
     @Test
     @DisplayName("Driver Test Case 15: Other fields are able to be modified during update operation")
     // Test case 15 : Other fields are able to be modified during update operation
     void testMutableAddress() {
-        Driver updatedDriver = new Driver("23@#45ABCD", "John Smith", 12, "Heavy", "25|Crescent|Melbourne|Victoria|Australia", "10-08-2000");
+        Driver updatedDriver = new Driver("23@#45pgAB", "John Smith", 12, "Heavy", "25|Crescent|Melbourne|Victoria|Australia", "10-08-2000");
         assertDoesNotThrow(() -> exampleDriver.updateDriver(updatedDriver));
         assertEquals("25|Crescent|Melbourne|Victoria|Australia", exampleDriver.getAddress());
     }
