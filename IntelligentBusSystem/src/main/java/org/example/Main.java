@@ -6,7 +6,7 @@ public class Main {
     public static void main() {
         System.out.println("------------ Local Demonstration/Testing ---------------");
         Bus testBus = new Bus("12345678", 50, 100.0, "Diesel");
-        System.out.println("Starting bus tests...")
+        System.out.println("Starting bus tests...");
 
         BusRepository busRepo = new BusRepository("busRepo.json");
         System.out.println("Adding test bus 1...");
@@ -24,7 +24,7 @@ public class Main {
 
         System.out.println("Updating test bus 1 to a lower capacity...");
         Bus updatedTestBus = new Bus("12345678", 40, 100.0, "Diesel");
-        testBus.updateBus(updatedTestBus)
+        testBus.updateBus(updatedTestBus);
         busRepo.update(updatedTestBus);
 
         System.out.println("busRepo.json : ");
@@ -40,7 +40,7 @@ public class Main {
         Driver testDriver = new Driver("23@#45pgAB", "John Smith", 12, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
         System.out.println("Starting driver tests...");
         
-        DriverRespoistory driverRepo = new DriverRepositiory("driverRepo.json");
+        DriverRepository driverRepo = new DriverRepository("driverRepo.json");
         System.out.println("Adding test driver 1...");
 
         driverRepo.add(testDriver);
@@ -53,12 +53,12 @@ public class Main {
         System.out.println("Driver Experience Years: " + retrievedDriver.getExperienceYears());
         System.out.println("Driver LicenseType: " + retrievedDriver.getLicenseType());
         System.out.println("Driver Address: " + retrievedDriver.getAddress());
-        System.out.println("Driver Birthdate: " + retrievedDriver.getBirthddate());
+        System.out.println("Driver Birthdate: " + retrievedDriver.getBirthdate());
 
         System.out.println("Updating test driver 1 to an increased experience...");
         Driver updatedTestDriver = new Driver("23@#45pgAB", "John Smith", 13, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
         testDriver.updateDriver(updatedTestDriver);
-        driverRepo.update("23@#45pgAB", updateTestDriver); 
+        driverRepo.update("23@#45pgAB", updatedTestDriver); 
         
         System.out.println("--------- Updated Driver ---------");
         System.out.println("driverRepo.json : ");
@@ -69,7 +69,7 @@ public class Main {
         System.out.println("Driver Experience Years: " + retrievedDriver1.getExperienceYears());
         System.out.println("Driver LicenseType: " + retrievedDriver1.getLicenseType());
         System.out.println("Driver Address: " + retrievedDriver1.getAddress());
-        System.out.println("Driver Birthdate: " + retrievedDriver1.getBirthddate());
+        System.out.println("Driver Birthdate: " + retrievedDriver1.getBirthdate());
         
     }
 }
