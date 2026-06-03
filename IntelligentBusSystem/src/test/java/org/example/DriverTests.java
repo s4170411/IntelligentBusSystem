@@ -12,7 +12,7 @@ class DriverTests {
 
     @BeforeEach
     void setUp() {
-        exampleDriver = new Driver("23@#45pgAB", "John Smith", 12, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");;
+        exampleDriver = new Driver("23@#45pgAB", "John Smith", 12, "Heavy", "10|Morrison|Melbourne|Victoria|Australia", "10-08-2000");
     }
 
 
