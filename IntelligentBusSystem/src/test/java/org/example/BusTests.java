@@ -22,6 +22,7 @@ class BusTests {
 
     @Test
     // Test case 1 : Valid
+    @DisplayName("Bus Test Case 1 : Check BusID Valid")
     void testValidBusID() {
         assertDoesNotThrow(() -> new Bus("12345678", 35, 60.0, "Hybrid"));
     }
