@@ -24,7 +24,7 @@ class BusTests {
     // Test case 1 : Valid
     @DisplayName("Bus Test Case 1 : Check BusID Valid")
     void testValidBusID() {
-        assertDoesNotThrow(() -> new Bus("12345678", 35, 60.0, "Hybrid"));
+        assertDoesNotThrow(() -> new Bus("94683370", 35, 60.0, "Hybrid"));
     }
     
     // Test case 2 : 8 Characters
