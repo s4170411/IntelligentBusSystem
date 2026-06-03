@@ -9,7 +9,7 @@ public class Bus {
     private double fuelLevel;
     private String fuelType; // Diesel, Hybrid, Electricity
 
-    // s4170411 -> Last updated 27th May
+    // Build bus object with setters required
     public Bus(String busID, int capacity, double fuelLevel, String fuelType) {
         setBusID(busID);
         setCapacity(capacity);
