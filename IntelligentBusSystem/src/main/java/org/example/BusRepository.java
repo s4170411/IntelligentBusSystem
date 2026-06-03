@@ -11,13 +11,19 @@ import org.json.simple.parser.JSONParser;
 
 public class BusRepository {
 
+    private final String filePath;
+
+    public BusRepository(String filePath) {
+        this.filePath = filePath;
+    }
+    
     // Add (), Update (), Retrieve (), Count () functions
 
     // Grab list, add, re-write to JSON
     public void add(Bus bus) {
         JSONParser parser = new JSONParser();
         JSONArray busList = new JSONArray();
-        try (FileReader fileRead = new FileReader("busRepo.json")) {
+        try (FileReader fileRead = new FileReader(filePath)) {
             busList = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             // Proceed with empty list
@@ -31,7 +37,7 @@ public class BusRepository {
         jsonObject.put("fuelLevel", bus.getFuelLevel());
 
         busList.add(jsonObject);
-        try(FileWriter file = new FileWriter("busRepo.json")) {
+        try(FileWriter file = new FileWriter(filePath)) {
             file.write(busList.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -46,7 +52,7 @@ public class BusRepository {
         JSONArray busList = new JSONArray();
         boolean busFound = false;
 
-        try (FileReader fileRead = new FileReader("busRepo.json")) {
+        try (FileReader fileRead = new FileReader(filePath)) {
             busList = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             throw new RuntimeException("No buses exist to update");
@@ -74,7 +80,7 @@ public class BusRepository {
             throw new IllegalArgumentException(updatedBus.getBusID() + " does not exist in JSON");
         }
 
-        try (FileWriter file = new FileWriter("busRepo.json")){
+        try (FileWriter file = new FileWriter(filePath)){
             file.write(busList.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -88,7 +94,7 @@ public class BusRepository {
         JSONParser parser = new JSONParser();
         JSONArray busArray = new JSONArray();
         List<Bus> busList = new ArrayList<>();
-        try (FileReader fileRead = new FileReader("busRepo.json")) {
+        try (FileReader fileRead = new FileReader(filePath)) {
             busArray = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             // Proceed with empty list
@@ -111,7 +117,7 @@ public class BusRepository {
         JSONParser parser = new JSONParser();
         JSONArray busArray = new JSONArray();
 
-        try (FileReader fileRead = new FileReader("busRepo.json")) {
+        try (FileReader fileRead = new FileReader(filePath)) {
             busArray = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             // Proceed with empty list
@@ -136,7 +142,7 @@ public class BusRepository {
     public int count () {
         JSONParser parser = new JSONParser();
         JSONArray busList = new JSONArray();
-        try (FileReader fileRead = new FileReader("busRepo.json")) {
+        try (FileReader fileRead = new FileReader(filePath)) {
             busList = (JSONArray) parser.parse(fileRead);
         } catch (Exception e) {
             // Proceed with empty list

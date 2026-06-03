@@ -7,7 +7,7 @@ public class Main {
         System.out.println("------------ Local Demonstration/Testing ---------------");
         Bus testBus = new Bus("12345678", 50, 100.0, "Diesel");
 
-        BusRepository busRepo = new BusRepository();
+        BusRepository busRepo = new BusRepository("busRepo.json");
         System.out.println("Adding test bus 1...");
         busRepo.add(testBus);
 
