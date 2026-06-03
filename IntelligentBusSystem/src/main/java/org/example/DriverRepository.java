@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 
 public class DriverRepository {
 
+    // Helper methods to load and save the driver data from/to the JSON file
     private JSONArray loadDrivers() {
         File file = new File("driverRepo.json");
         if (!file.exists()) {
@@ -34,7 +35,7 @@ public class DriverRepository {
             throw new RuntimeException(e);
         }
     }
-
+    // Adds a new driver to the repository, returns false if a driver with the same ID already exists
     public boolean add(Driver driver) {
         JSONArray jsonArray = loadDrivers();
         for (Object obj : jsonArray) {
@@ -54,7 +55,7 @@ public class DriverRepository {
         saveDrivers(jsonArray);
         return true;
     }
-
+    // Retrieves a driver by their ID, throws an exception if the driver does not exist
     public Driver retrieve(String driverID) {
         JSONArray jsonArray = loadDrivers();
         for (Object obj : jsonArray) {
@@ -72,7 +73,7 @@ public class DriverRepository {
         }
         throw new IllegalArgumentException(driverID + " does not exist in the repository.");
     }
-
+    // Finds the driver by ID and updates their information (except for driver ID, name, and license type if they have more than 10 years of experience)
     public boolean update(String driverID, Driver updatedDriver) {
         JSONArray jsonArray = loadDrivers();
         boolean driverFound = false;
@@ -102,7 +103,7 @@ public class DriverRepository {
         }
         return false;
     }
-
+    // Returns the total number of drivers in the repository
     public int count() {
         return loadDrivers().size();
     }
