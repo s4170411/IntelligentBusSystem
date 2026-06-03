@@ -111,7 +111,7 @@ public class Driver {
         }
         this.birthdate = birthdate;
     }
-
+    // Updates the driver info while making sure they cannot change their driver ID, name, and license type if they have more than 10 years of experience
     public void updateDriver(Driver updatedDriver) {
         if (!this.driverID.equals(updatedDriver.getDriverID())) {
             throw new IllegalArgumentException("Driver ID cannot be changed during an update.");

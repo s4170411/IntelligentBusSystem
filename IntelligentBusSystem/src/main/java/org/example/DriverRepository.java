@@ -15,6 +15,7 @@ public class DriverRepository {
     public DriverRepository(String filePath) {
         this.filePath = filePath;
     }
+    // Helper methods to load and save drivers from/to the JSON file
     private JSONArray loadDrivers() {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -28,7 +29,7 @@ public class DriverRepository {
             return new JSONArray();
         }
     }
-
+    // Saves the given JSONArray of drivers back to the JSON file
     private void saveDrivers(JSONArray jsonArray) {
         try {
             FileWriter file = new FileWriter(filePath);
@@ -38,7 +39,7 @@ public class DriverRepository {
             throw new RuntimeException(e);
         }
     }
-
+    // Adds a new driver to the repository if the driverID is unique
     public boolean add(Driver driver) {
         JSONArray jsonArray = loadDrivers();
         for (Object obj : jsonArray) {
@@ -58,7 +59,7 @@ public class DriverRepository {
         saveDrivers(jsonArray);
         return true;
     }
-
+    // Retrieves a driver by driverID, throws an exception if not found
     public Driver retrieve(String driverID) {
         JSONArray jsonArray = loadDrivers();
         for (Object obj : jsonArray) {
@@ -76,7 +77,7 @@ public class DriverRepository {
         }
         throw new IllegalArgumentException(driverID + " does not exist in the repository.");
     }
-
+    // Updates an existing driver's details based on the provided driverID and updatedDriver information
     public boolean update(String driverID, Driver updatedDriver) {
         JSONArray jsonArray = loadDrivers();
         boolean driverFound = false;
@@ -106,7 +107,7 @@ public class DriverRepository {
         }
         return false;
     }
-
+    // Counts the total number of drivers in the repository 
     public int count() {
         return loadDrivers().size();
     }
