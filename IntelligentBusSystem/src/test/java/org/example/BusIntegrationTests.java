@@ -40,6 +40,7 @@ class BusIntegrationTests {
         assertThrows(IllegalArgumentException.class, () -> {
             Bus invalidBus = new Bus("123", 40, 80.0, "Diesel");
             repository.add(invalidBus);
+
         });
     }
     @Test
